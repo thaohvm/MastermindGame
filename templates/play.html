@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Mastermind</h1>
+<form>
+    <label for="first-choice">Choose first digit</label>
+    <select id="first-choice" name="first">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select>
+      <button>Submit My Guess!</button>
+</form>
+<div>
+{{ answer }}
+</div>
+<div id="result">
+    <!-- <p>{{ game.feedbacks }}</p>
+    <p>{{ game.attempts }}</p> -->
+</div>
+
+{% endblock %}
