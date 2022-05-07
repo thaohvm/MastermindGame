@@ -2,7 +2,7 @@ const express = require('express');
 const nunjucks = require("nunjucks");
 const bodyParser = require("body-parser");
 const ExpressError = require('./expressError');
-const mastermindRoutes = require('./mastermindRoutes');
+const routes = require('./routes');
 const app = express();
 
 app.use(express.json());
@@ -20,7 +20,7 @@ nunjucks.configure("templates", {
 
 //  apply a prefix to every route in userRoutes
 
-app.use("/mastermind", mastermindRoutes);
+app.use("/", routes);
 
 // 404 handler
 app.use(function (req, res, next) {
