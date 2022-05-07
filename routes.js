@@ -11,9 +11,9 @@ router.get('/rule', (req, res, next) => {
 
 router.get('/play', async (req, res, next) => {
     try {
-        const answer = await Combination.getRandomNum(NUM_OF_DIGIT);
-        console.log(answer)
-        return res.render("play.html", { answer });
+        const combination = await Combination.getRandomInt(NUM_OF_DIGIT);
+        console.log(combination)
+        return res.render("play.html", { combination });
     } catch (e) {
         return next(e)
     }
