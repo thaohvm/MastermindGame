@@ -1,12 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Game Rule</h1>
-    <p>Please implement a mastermind game,
-        which can be played by a user "against" the computer.
-        Thisisagamewhereaplayertriestoguessthenumbercombinations.
-        Attheendofeach attempt to guess the 4 number combinations,
-        the computer will provide feedback whether the player had guess a number correctly,
-        or/and a number and digit correctly.
-        A player must guess the right number combinations within
-        10 attempts to win the game.</p>
+<h1>Game Rule</h1>
+<p>Please implement a mastermind game,
+    which can be played by a user "against" the computer.
+    Thisisagamewhereaplayertriestoguessthenumbercombinations.
+    Attheendofeach attempt to guess the 4 number combinations,
+    the computer will provide feedback whether the player had guess a number correctly,
+    or/and a number and digit correctly.
+    A player must guess the right number combinations within
+    10 attempts to win the game.</p>
+
+<form id="user-input">
+    <div>
+        <label for="num-digits">Choose how many digits you want to guess against:</label>
+        <select id="num-digits" name="num-digits">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="num-guess">Choose how many guesses you wish</label>
+        <select id="num-guess" name="num-guess">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+    </div>
+    <button id="start-game">Start Game!</button>
+</form>
 {% endblock %}

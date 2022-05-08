@@ -1,14 +1,21 @@
 {
   "name": "mastermind",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "MasterMind Game",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "jest --silent"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Thao Huynh",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
     "express": "^4.18.1",

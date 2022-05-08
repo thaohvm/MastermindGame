@@ -1,6 +1,6 @@
 "use strict";
 const { default: axios } = require('axios');
-const ExpressError = require('../expressError');
+const ExpressError = require('../error');
 
 const config = require('../config');
 
@@ -13,7 +13,7 @@ class Combination {
         return axios.get(Combination.getRandomGeneratorUrl(numDigits, min, max))
             .then(function (response) {
                 console.log(response.data);
-                if (!/^[0-9\s]*$/.test(response.data)) {
+                if (!/^[0-9\s]+$/.test(response.data)) {
                     // Response should only include digits and new line characters
                     console.log("Invalid data format from Random Generator!");
                     return Combination.getLocalRandomInt(numDigits, min, max);

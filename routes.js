@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const Combination = require('./models/combination');
-const ExpressError = require('./expressError');
+const ExpressError = require('./error');
 
 const NUM_OF_DIGIT = 4;
 
@@ -16,6 +16,17 @@ router.get('/play', async (req, res, next) => {
         return res.render("play.html", { combination });
     } catch (e) {
         return next(e)
+    }
+})
+
+router.post('/rule', async (req, res, next) => {
+    try {
+        const { numGuess, numDigits } = req.body;
+        const gameInit = new GameInit({ numGuess, numDigits });
+        await gameInit.save();
+        return res.redirect('/play')
+    } catch (err) {
+        return next(err);
     }
 })
 
