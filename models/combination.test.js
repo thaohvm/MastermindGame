@@ -9,7 +9,7 @@ jest.mock("axios");
 describe("Combination: getRandomGeneratorUrl", () => {
     test("should contain base URL", () => {
         const url = Combination.getRandomGeneratorUrl(4, 0, 7);
-        expect(url).toContain(config.combination.baseUrl);
+        expect(url).toContain(config.combination.BASE_URL);
     })
 })
 

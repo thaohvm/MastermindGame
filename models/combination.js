@@ -15,7 +15,7 @@ class Combination {
      * @returns {str} Full Random Generator URL
      */
     static getRandomGeneratorUrl(numDigits, min, max) {
-        return `${config.combination.baseUrl}/?num=${numDigits}&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`;
+        return `${config.combination.BASE_URL}/?num=${numDigits}&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`;
     }
 
     /**
@@ -26,7 +26,7 @@ class Combination {
      * @param {int} max Maximum value of the intergers (inclusive)
      * @returns {int[]} Generated combination
      */
-    static async getRandomInt(numDigits = config.combination.numDigits, min = config.combination.min, max = config.combination.max) {
+    static async getRandomInt(numDigits, min, max) {
         return axios.get(Combination.getRandomGeneratorUrl(numDigits, min, max))
             .then(function (response) {
                 console.log(response.data);

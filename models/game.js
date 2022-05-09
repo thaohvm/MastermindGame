@@ -1,3 +1,4 @@
+"use strict";
 const config = require('../config');
 const Combination = require('./combination');
 
@@ -17,17 +18,19 @@ class GameResult {
 // How to handle incorrect input (e.g., more digits than allowed)
 
 class Game {
-    constructor(numDigits, min, max, numAttempts) {
+    constructor(sessionId, numDigits = config.game.NUM_DIGITS, min = config.game.MIN, max = config.game.MAX, numAttempts = config.game.NUM_ATTEMPTS) {
+        this.sessionId = sessionId;
         this.numDigits = numDigits;
         this.min = min;
         this.max = max;
         this.numAttempts = numAttempts;
 
-        this.sessionId = 0;
-        this.combination = [];
+        this.combination = null;
         this.guesses = [];
+    }
 
-        this.reset();
+    async init() {
+        this.combination = await Combination.getRandomInt(this.numDigits, this.min, this.max);
     }
 
     handleGuess(guess) {
@@ -39,14 +42,14 @@ class Game {
             false,
         );
 
-        // find correct positions
+        // Find correct positions
         for (let i = 0; i < guess.length; i++) {
             if (this.combination[i] === guess[i]) {
                 result.numCorrectLocations++;
             }
         }
 
-        // find correct numbers
+        // Find correct numbers
         for (let i = 0; i < guess.length; i++) {
             if (this.combination.indexOf(guess[i]) > -1 && this.combination[i] !== guess[i]) {
                 result.numCorrectNumbers++;
@@ -60,12 +63,6 @@ class Game {
             result: result,
         });
         return result;
-    }
-
-    reset() {
-        this.sessionId = 0;
-        this.combination = Combination.getRandomInt(this.numDigits, this.min, this.max);
-        this.guesses = [];
     }
 
     getCombination() {

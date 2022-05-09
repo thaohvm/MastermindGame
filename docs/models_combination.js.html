@@ -19,11 +19,11 @@
 
     <h1 class="page-title">Source: models/combination.js</h1>
 
-    
 
 
 
-    
+
+
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>"use strict";
@@ -43,7 +43,7 @@ class Combination {
      * @returns {str} Full Random Generator URL
      */
     static getRandomGeneratorUrl(numDigits, min, max) {
-        return `${config.combination.baseUrl}/?num=${numDigits}&amp;min=${min}&amp;max=${max}&amp;col=1&amp;base=10&amp;format=plain&amp;rnd=new`;
+        return `${config.combination.BASE_URL}/?num=${numDigits}&amp;min=${min}&amp;max=${max}&amp;col=1&amp;base=10&amp;format=plain&amp;rnd=new`;
     }
 
     /**
@@ -54,7 +54,7 @@ class Combination {
      * @param {int} max Maximum value of the intergers (inclusive)
      * @returns {int[]} Generated combination
      */
-    static async getRandomInt(numDigits = config.combination.numDigits, min = config.combination.min, max = config.combination.max) {
+    static async getRandomInt(numDigits = config.combination.NUM_DIGITS, min = config.combination.MIN, max = config.combination.MAX) {
         return axios.get(Combination.getRandomGeneratorUrl(numDigits, min, max))
             .then(function (response) {
                 console.log(response.data);

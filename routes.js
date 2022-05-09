@@ -1,9 +1,9 @@
 const express = require('express');
-const router = new express.Router();
-const Combination = require('./models/combination');
-const ExpressError = require('./error');
 
-const NUM_OF_DIGIT = 4;
+const ExpressError = require('./error');
+const { Game } = require('./models/game');
+
+const router = new express.Router();
 
 router.get('/rule', (req, res, next) => {
     res.render("game_rule.html");
@@ -11,7 +11,9 @@ router.get('/rule', (req, res, next) => {
 
 router.get('/play', async (req, res, next) => {
     try {
-        const combination = await Combination.getRandomInt(NUM_OF_DIGIT);
+        let game = new Game("session");
+        await game.init();
+        const combination = game.getCombination();
         console.log(combination)
         return res.render("play.html", { combination });
     } catch (e) {
