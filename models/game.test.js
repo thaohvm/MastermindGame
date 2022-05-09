@@ -69,4 +69,16 @@ describe("Game: handleGuess", () => {
         expect(game.handleGuess([1, 1, 0, 0]).isFinished).toBeFalsy;
         expect(game.handleGuess([1, 2, 0, 0]).isFinished).toBeTruthy;
     })
+
+    test("should keep track guesses and results correctly", async () => {
+        let game = new Game("session", 4, 0, 7, 3);
+        await game.init();
+
+        const guess1 = [1, 0, 0, 0];
+        const result1 = game.handleGuess(guess1);
+        expect(game.guesses).toEqual([{ guess: guess1, result: result1 }]);
+        const guess2 = [0, 1, 0, 0];
+        const result2 = game.handleGuess(guess2);
+        expect(game.guesses).toEqual([{ guess: guess1, result: result1 }, { guess: guess2, result: result2 }]);
+    })
 })

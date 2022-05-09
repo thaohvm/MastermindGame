@@ -10,10 +10,10 @@
     A player must guess the right number combinations within
     10 attempts to win the game.</p>
 
-<form id="user-input">
+<form id="game-input">
     <div>
-        <label for="num-digits">Choose how many digits you want to guess against:</label>
-        <select id="num-digits" name="num-digits">
+        <label for="num-digits-request">Choose how many digits you want to guess against:</label>
+        <select id="num-digits-request" name="num-digits-request">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -28,8 +28,8 @@
     </div>
 
     <div>
-        <label for="num-guess">Choose how many guesses you wish</label>
-        <select id="num-guess" name="num-guess">
+        <label for="num-guess-request">Choose how many guesses you wish</label>
+        <select id="num-guess-request" name="num-guess-request">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -44,4 +44,5 @@
     </div>
     <button id="start-game">Start Game!</button>
 </form>
+<script src="./static/js/start.js"></script>
 {% endblock %}
