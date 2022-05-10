@@ -36,6 +36,4 @@ app.use(function (req, res, next) {
 //     return res.render("error.html", { err });
 // });
 
-app.listen(config.PORT, function () {
-    console.log(`Server running on port ${config.PORT}`)
-})
+module.exports = app;

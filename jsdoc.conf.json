@@ -8,6 +8,6 @@
             "."
         ],
         "includePattern": ".+\\.js(doc|x)?$",
-        "excludePattern": "node_modules"
+        "excludePattern": "node_modules|static"
     }
 }

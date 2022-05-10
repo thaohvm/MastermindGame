@@ -1,7 +1,7 @@
 "use strict";
 const config = require('../config');
 const Combination = require('./combination');
-const { Game, GameResult } = require('./game');
+const { Game } = require('./game');
 
 jest.mock('./combination', () => ({
     ...(jest.requireActual('./combination')),
@@ -82,3 +82,44 @@ describe("Game: handleGuess", () => {
         expect(game.guesses).toEqual([{ guess: guess1, result: result1 }, { guess: guess2, result: result2 }]);
     })
 })
+
+describe("Game: getAttempsLeft", () => {
+    test("should return number of attempts left correctly", async () => {
+        let game = new Game("session", 4, 0, 7, 10);
+        await game.init();
+
+        game.handleGuess([1, 0, 0, 0]);
+        expect(game.getAttemptsLeft()).toBe(9);
+        game.handleGuess([1, 0, 0, 0]);
+        expect(game.getAttemptsLeft()).toBe(8);
+    });
+});
+
+describe("Game: isFinished", () => {
+    test("should determine correctly finishing state when runnning out of attempt", async () => {
+        let game = new Game("session", 4, 0, 7, 4);
+        await game.init();
+
+        expect(game.numAttempts).toBe(4);
+        game.handleGuess([1, 0, 0, 0]);
+        expect(game.isFinished()).toBeFalsy;
+        game.handleGuess([1, 0, 0, 0]);
+        expect(game.isFinished()).toBeFalsy;
+        game.handleGuess([1, 0, 0, 0]);
+        expect(game.isFinished()).toBeFalsy;
+        game.handleGuess([1, 0, 0, 0]);
+        expect(game.isFinished()).toBeTruthy;
+    });
+
+    test("should determine correctly finishing state when guess correctly", async () => {
+        let game = new Game("session", 4, 0, 7, 4);
+        await game.init();
+
+        expect(game.getCombination()).toEqual([1, 2, 3, 4]);
+        expect(game.numAttempts).toBe(4);
+        game.handleGuess([1, 0, 0, 0]);
+        expect(game.isFinished()).toBeFalsy;
+        game.handleGuess([1, 2, 3, 4]);
+        expect(game.isFinished()).toBeTruthy;
+    });
+});

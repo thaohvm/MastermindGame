@@ -2,6 +2,15 @@
 const config = require('../config');
 const Combination = require('./combination');
 
+class GameInit {
+    constructor(sessionId, numDigits, min, max, numAttempts) {
+        this.sessionId = sessionId;
+        this.numDigits = numDigits;
+        this.min = min;
+        this.max = max;
+        this.numAttempts = numAttempts;
+    }
+}
 
 class GameResult {
     constructor(sessionId, numAttemptsLeft, numCorrectLocations, numCorrectNumbers, isFinished) {
@@ -31,6 +40,14 @@ class Game {
 
     async init() {
         this.combination = await Combination.getRandomInt(this.numDigits, this.min, this.max);
+
+        return new GameInit(
+            this.sessionId,
+            this.numDigits,
+            this.min,
+            this.max,
+            this.numAttempts
+        )
     }
 
     handleGuess(guess) {
@@ -77,12 +94,18 @@ class Game {
         return this.sessionId;
     }
 
+    getAttemptsLeft() {
+        return this.numAttempts - this.guesses.length;
+    }
+
     isFinished() {
         return this.guesses.length === 0 || this.guesses[this.guesses.length - 1].result.isFinished;
     }
 }
 
+
 module.exports = {
-    Game: Game,
+    GameInit: GameInit,
     GameResult: GameResult,
+    Game: Game,
 };
