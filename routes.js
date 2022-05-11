@@ -5,8 +5,11 @@ const { v4: uuidv4 } = require("uuid");
 
 const config = require('./config');
 const { Game } = require('./models/game');
+const User = require('./models/user')
+const ExpressError = require('./error')
 
 const router = new express.Router();
+
 
 router.get('/rule', (req, res, next) => {
     res.render("game_rule.html");
@@ -60,5 +63,41 @@ router.post('/play/guess', async (req, res, next) => {
         res.json({ error: err.message })
     }
 })
+// ******************************************** USER ROUTES ***********************************************
+
+/** login: {username, password} => {token} */
+
+router.post("user/login", async function (req, res, next) {
+    try {
+        let { username, password } = req.body;
+        if (await User.authenticate(username, password)) {
+            let token = jwt.sign({ username }, SECRET_KEY);
+            return res.json({ token });
+        } else {
+            throw new ExpressError("Invalid username/password", 400);
+        }
+    }
+
+    catch (err) {
+        return next(err);
+    }
+});
+
+/** register user: registers, logs in, and returns token.
+ *
+ *
+ */
+
+router.post("/user/register", async function (req, res, next) {
+    try {
+        let { username } = await User.register(req.body);
+        let token = jwt.sign({ username }, SECRET_KEY);
+        return res.json({ token });
+    }
+
+    catch (err) {
+        return next(err);
+    }
+});
 
 module.exports = router;

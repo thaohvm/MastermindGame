@@ -1,48 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Game Rule</h1>
-<p>Please implement a mastermind game,
-    which can be played by a user "against" the computer.
-    Thisisagamewhereaplayertriestoguessthenumbercombinations.
-    Attheendofeach attempt to guess the 4 number combinations,
-    the computer will provide feedback whether the player had guess a number correctly,
-    or/and a number and digit correctly.
-    A player must guess the right number combinations within
-    10 attempts to win the game.</p>
+<div class="container">
+    <h1>Game Rule</h1>
+    <p>This is a game where you try to guess the number combinations.
+    <ul>
+        <li>Starting by select the number of digits that you want to guess and number of attempts you wish.</li>
+        <li>You must enter full combination that you guess.</li>
+        <li>At each attempts, you will be provided feedback whether you had guess a number correctly, and/or a number and digit correctly.</li>
+        <li>You must guess the right number combinations within the number of requested attempts to win the game.</li>
+        <li>Duplicate are allowed.</li>
+    </ul>
 
-<form id="game-input">
-    <div>
-        <label for="num-digits-request">Choose how many digits you want to guess against:</label>
-        <select id="num-digits-request" name="num-digits-request">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
+    <div id="mm-play">
+        <button class="btn btn-primary" id="mm-btn-play"><a href="/play">Play Game!</a></button>
     </div>
+</div>
 
-    <div>
-        <label for="num-guess-request">Choose how many guesses you wish</label>
-        <select id="num-guess-request" name="num-guess-request">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
-    </div>
-    <button id="start-game">Start Game!</button>
-</form>
 
 {% endblock %}

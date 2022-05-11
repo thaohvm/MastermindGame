@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 var config = {};
 
 config.combination = {};

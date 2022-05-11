@@ -7,7 +7,9 @@
 {% block content %}
 
 <h1>Mastermind</h1>
+
 <div class="container" id="mm-config">
+
     <div id="mm-digits-config">
         <label for="num-digits-request">Choose how many digits you want to guess against:</label>
         <select id="num-digits-request" name="num-digits-request">
@@ -39,12 +41,20 @@
             <option value="10">10</option>
         </select>
     </div>
-    <button type="button" class="btn btn-primary" id="mm-btn-start">Start!</button>
+    <div>
+        <button type="button" class="btn btn-primary" id="mm-btn-start">Start!</button>
+    </div>
 </div>
 
-<div id="combination-result"></div>
-<div id="mastermind"></div>
+<div class="container">
+    <div id="mm-replay">
+        <button class="btn btn-primary" id="mm-btn-replay"><a href="/play">Replay</a></button>
+    </div>
+    <div class="container" id="combination-result"></div>
+    <div class="container" id="mastermind"></div>
 
-<div id="mm-result"></div>
+    <div class="container" id="mm-result"></div>
+</div>
+
 
 {% endblock %}

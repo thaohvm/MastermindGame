@@ -1,12 +1,11 @@
 "use strict";
 const db = require('../db');
 const bcrypt = require('bcrypt');
+const config = require("../config");
 const { UnauthorizedError, BadRequestError } = require('../error');
 
-const config = require("../config");
-
 class User {
-    static async register({ username, password, first_name, last_name }) {
+    static async register({ username, password }) {
         // Try to find the user first
         const duplicateChheck = await db.query(
             `SELECT username
@@ -21,9 +20,7 @@ class User {
         const result = await db.query(
             `INSERT INTO users (
                 username,
-                password,
-                first_name,
-                last_name,
+                password
             VALUES ($1, $2, $3, $4))
             RETURNING username, password, first_name, last_name`,
             [username, hashedPassword, first_name, last_name]

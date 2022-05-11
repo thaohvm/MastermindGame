@@ -1,0 +1,36 @@
+.nav-link {
+    color: white;
+
+}
+
+nav {
+    display: -webkit-box;
+}
+
+body {
+    background-color: #343a40;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+#mm-config {
+    text-align: center;
+}
+
+#mm-btn-start #mm-replay #mm-play {
+    margin-top: 5em;
+    text-align: center;
+    padding-top: 3em;
+    justify-content: center;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+#mm-btn-replay {
+    text-align: center;
+}

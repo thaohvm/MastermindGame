@@ -1,7 +1,7 @@
 $(document).ready(function () {
     let game = null;
     let curAttempt = 0;
-
+    $("#mm-replay").hide()
     $("#mm-btn-start").click(function () {
         const numDigitsRequest = parseInt($("#num-digits-request").val());
         const numAttemptsRequest = parseInt($("#num-attempts-request").val());
@@ -38,6 +38,7 @@ $(document).ready(function () {
         // Store game init data and hide config elements
         game = data;
         $("#mm-config").hide();
+        $("#mm-replay").show();
 
         $("#mm-attempts").text(`${game.numAttempts} attempts left`);
         generateNewAttempt();
@@ -160,7 +161,7 @@ $(document).ready(function () {
                     } else {
                         $("#mm-result").text("YOU LOSE!");
                     }
-                    $("#combination-result").show().text(`Combination resutl is: ${data.combination}`)
+                    $("#combination-result").show().text(`Combination result is: ${data.combination}`)
                     $("#btn-start").show();
                 } else {
                     // If game hasn't finished, generate a new attempt row

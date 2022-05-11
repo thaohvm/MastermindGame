@@ -5,7 +5,15 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     username text,
-    hashed_password text
-    first_name text NOT NULL,
-    last_name text NOT NULL,
+    password text
+);
+
+CREATE TABLE sessions (
+    session_id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id integer NOT NULL REFERENCES users,
+    min integer,
+    max integer,
+    num_attempts integer,
+
+
 );
