@@ -66,7 +66,8 @@ describe("POST /play/guess", () => {
             "numAttemptsLeft": 2,
             "numCorrectLocations": 2,
             "numCorrectNumbers": 0,
-            "isFinished": false
+            "isFinished": false,
+            "combination": [],
         });
 
         response = await request(app)
@@ -80,7 +81,8 @@ describe("POST /play/guess", () => {
             "numAttemptsLeft": 1,
             "numCorrectLocations": 4,
             "numCorrectNumbers": 0,
-            "isFinished": true
+            "isFinished": true,
+            "combination": [1, 2, 3, 4],
         });
     });
 

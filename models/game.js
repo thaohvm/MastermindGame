@@ -13,12 +13,13 @@ class GameInit {
 }
 
 class GameResult {
-    constructor(sessionId, numAttemptsLeft, numCorrectLocations, numCorrectNumbers, isFinished) {
+    constructor(sessionId, numAttemptsLeft, numCorrectLocations, numCorrectNumbers, isFinished, combination) {
         this.sessionId = sessionId;
         this.numAttemptsLeft = numAttemptsLeft;
         this.numCorrectLocations = numCorrectLocations;
         this.numCorrectNumbers = numCorrectNumbers;
         this.isFinished = isFinished;
+        this.combination = combination;
     }
 }
 
@@ -46,7 +47,7 @@ class Game {
             this.numDigits,
             this.min,
             this.max,
-            this.numAttempts
+            this.numAttempts,
         )
     }
 
@@ -57,6 +58,7 @@ class Game {
             0,
             0,
             false,
+            []
         );
 
         // Find correct positions
@@ -74,6 +76,9 @@ class Game {
         }
 
         result.isFinished = result.numAttemptsLeft === 0 || result.numCorrectLocations === this.numDigits;
+        if (result.isFinished) {
+            result.combination = this.combination
+        }
 
         this.guesses.push({
             guess: guess,

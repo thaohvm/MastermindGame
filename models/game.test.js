@@ -81,6 +81,18 @@ describe("Game: handleGuess", () => {
         const result2 = game.handleGuess(guess2);
         expect(game.guesses).toEqual([{ guess: guess1, result: result1 }, { guess: guess2, result: result2 }]);
     })
+
+    test("should only return combination when the game is finished", async () => {
+        let game = new Game("session", 4, 0, 7, 2);
+        await game.init();
+
+        let result = game.handleGuess([1, 0, 0, 0]);
+        expect(result.isFinished).toBeFalsy;
+        expect(result.combination).toEqual([]);
+        result = game.handleGuess([1, 0, 0, 0]);
+        expect(result.isFinished).toBeTruthy;
+        expect(result.combination).toEqual(game.combination);
+    })
 })
 
 describe("Game: getAttempsLeft", () => {

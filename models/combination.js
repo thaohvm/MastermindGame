@@ -35,7 +35,7 @@ class Combination {
                     return Combination.getLocalRandomInt(numDigits, min, max);
                 }
 
-                return response.data.trim().split('\n').map(el => parseInt(el));
+                return String(response.data).trim().split('\n').map(el => parseInt(el));
             })
             .catch(function (error) {
                 if (error.response) {

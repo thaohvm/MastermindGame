@@ -14,11 +14,7 @@ router.get('/rule', (req, res, next) => {
 
 router.get('/play', async (req, res, next) => {
     try {
-        let game = new Game("session");
-        await game.init();
-        const combination = game.getCombination();
-        console.log(combination)
-        return res.render("play.html", { combination });
+        return res.render("play.html");
     } catch (e) {
         return next(e)
     }
@@ -36,8 +32,8 @@ router.post('/play/start', async (req, res, next) => {
             data.max ? data.max : config.game.MAX,
             data.numAttempts ? data.numAttempts : config.game.NUM_ATTEMPTS
         );
-        cache.put(game.getSessionId(), game);
         const gameInit = await game.init();
+        cache.put(game.getSessionId(), game);
         console.log(`Generated session ${sessionId} with combination ${game.getCombination()}`);
         res.json(gameInit);
     } catch (err) {
@@ -58,6 +54,7 @@ router.post('/play/guess', async (req, res, next) => {
         }
         let result = game.handleGuess(data.guess);
         res.json(result)
+        console.log(result)
     } catch (err) {
         res.status(500);
         res.json({ error: err.message })

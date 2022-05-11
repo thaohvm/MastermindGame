@@ -1,6 +1,7 @@
-const express = require('express');
-const nunjucks = require("nunjucks");
 const bodyParser = require("body-parser");
+const express = require("express");
+const nunjucks = require("nunjucks");
+const path = require("path");
 
 const config = require('./config');
 const { ExpressError } = require('./error');
@@ -10,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "static")));
 
 // Parse body for urlencoded (non-JSON) data
 app.use(bodyParser.urlencoded({ extended: false }));

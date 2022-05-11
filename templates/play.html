@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
+
+{% block script %}
+<script src="/js/play.js"></script>
+{% endblock %}
+
 {% block content %}
 
 <h1>Mastermind</h1>
-<!-- <form id="game-info-request">
-    <div id="digits-session">
+<div class="container" id="mm-config">
+    <div id="mm-digits-config">
         <label for="num-digits-request">Choose how many digits you want to guess against:</label>
         <select id="num-digits-request" name="num-digits-request">
             <option value="1">1</option>
@@ -19,7 +24,7 @@
         </select>
     </div>
 
-    <div id="attempts-session">
+    <div id="mm-attempts-config">
         <label for="num-attempts-request">Choose how many guesses you wish</label>
         <select id="num-attempts-request" name="num-attempts-request">
             <option value="1">1</option>
@@ -34,40 +39,12 @@
             <option value="10">10</option>
         </select>
     </div>
-    <button id="start-game">Start Game!</button>
- </form> -->
-
-    <!-- <label for="first_choice">Choose first digit</label>
-    <select id="first_choice" name="first">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select>
-      <button>Submit My Guess!</button> -->
-
-<div id="user-guess">
-    <select id="first_choice" name="first">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select>
-    <button>Submit My Guess!</button>
+    <button type="button" class="btn btn-primary" id="mm-btn-start">Start!</button>
 </div>
-<div>
-    {{ combination }}
-</div>
-<div id="result">
 
-</div>
+<div id="combination-result"></div>
+<div id="mastermind"></div>
+
+<div id="mm-result"></div>
 
 {% endblock %}
