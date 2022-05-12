@@ -11,6 +11,13 @@ const ExpressError = require('./error')
 
 const router = new express.Router();
 
+router.get('/login', (req, res, next) => {
+    res.render("login.html");
+})
+
+router.get('/register', (req, res, next) => {
+    res.render("register.html");
+})
 
 router.get('/rule', (req, res, next) => {
     res.render("game_rule.html");
@@ -25,6 +32,32 @@ router.get('/play', async (req, res, next) => {
 })
 
 // ******** BACKEND APIS ********
+
+router.post("/register", async function (req, res, next) {
+    try {
+        let { username } = await User.register(req.body);
+        let token = jwt.sign({ username }, config.db.SECRET_KEY);
+        return res.json({ token });
+    } catch (err) {
+        res.status(500);
+        res.json({ error: err.message })
+    }
+});
+
+router.post("/login", async function (req, res, next) {
+    try {
+        const { username, password } = req.body;
+        if (await User.authenticate(username, password)) {
+            const token = jwt.sign({ username }, config.db.SECRET_KEY);
+            return res.json({ token });
+        } else {
+            throw new ExpressError("Invalid username/password", 400);
+        }
+    } catch (err) {
+        res.status(500);
+        res.json({ error: err.message })
+    }
+});
 
 router.post('/play/start', async (req, res, next) => {
     try {
@@ -65,50 +98,5 @@ router.post('/play/guess', async (req, res, next) => {
         res.json({ error: err.message })
     }
 })
-
-// ******** USER ROUTES ********
-
-router.get('/login', (req, res, next) => {
-    res.render("login.html");
-})
-
-router.get('/register', (req, res, next) => {
-    res.render("register.html");
-})
-
-/** login: {username, password} => {token} */
-
-router.post("/login", async function (req, res, next) {
-    try {
-        let { username, password } = req.body;
-        if (await User.authenticate(username, password)) {
-            let token = jwt.sign({ username }, config.db.SECRET_KEY);
-            return res.json({ token, "message" : "login" });
-        } else {
-            throw new ExpressError("Invalid username/password", 400);
-        }
-    }
-
-    catch (err) {
-        return next(err);
-    }
-});
-
-/** register user: registers, logs in, and returns token.
- *
- *
- */
-
-router.post("/register", async function (req, res, next) {
-    try {
-        let { username } = await User.register(req.body);
-        let token = jwt.sign({ username }, config.db.SECRET_KEY);
-        return res.json({ token });
-    }
-
-    catch (err) {
-        return next(err);
-    }
-});
 
 module.exports = router;

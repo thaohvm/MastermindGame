@@ -1,5 +1,4 @@
 \c mastermind
-\c mastermind_test
 
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS users;
@@ -19,6 +18,3 @@ CREATE TABLE sessions (
     is_finished boolean,
     state text
 );
-
-INSERT INTO users(username, password)
-VALUES ()
