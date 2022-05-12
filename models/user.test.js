@@ -1,7 +1,7 @@
 "use strict";
 const db = require("../db");
 const User = require("./user");
-const { BadRequestError, UnauthorizedError } = require('../error');
+const { BadRequestError, UnauthorizedError, NotFoundError } = require('../error');
 
 beforeEach(async () => {
     await db.query("DELETE FROM sessions");
@@ -48,5 +48,19 @@ describe("User", () => {
 
         isValid = await User.authenticate("test", "xxx");
         expect(isValid).toBeFalsy();
+    });
+
+    test("can get detail of requested user", async () => {
+        let user = await User.get("test");
+        expect(user.username).toEqual("test");
+        expect((user.password).startsWith("$2b$")).toEqual(true);
+    });
+
+    test("should thrown error if requested user is not exist", async () => {
+        try {
+            await User.get("noUser");
+        } catch (err) {
+            expect(err instanceof NotFoundError).toBeTruthy();
+        }
     });
 })
