@@ -6,8 +6,9 @@ const jwt = require("jsonwebtoken");
 
 const config = require('./config');
 const { Game } = require('./models/game');
-const User = require('./models/user')
-const ExpressError = require('./error')
+const User = require('./models/user');
+const ExpressError = require('./error');
+const { authenticateJWT } = require('./middleware/auth');
 
 const router = new express.Router();
 
@@ -59,7 +60,21 @@ router.post("/login", async function (req, res, next) {
     }
 });
 
-router.post('/play/start', async (req, res, next) => {
+router.post("/auth", authenticateJWT, async function (req, res, next) {
+    try {
+        if (req.user) {
+            return res.json({ user: req.user });
+        } else {
+            res.status(401);
+            res.json({ error: "Unauthorized!" });
+        }
+    } catch (err) {
+        res.status(500);
+        res.json({ error: err.message })
+    }
+});
+
+router.post('/play/start', authenticateJWT, async (req, res, next) => {
     try {
         let sessionId = uuidv4();
         const data = req.body;
@@ -72,6 +87,9 @@ router.post('/play/start', async (req, res, next) => {
         );
         const gameInit = await game.init();
         cache.put(game.getSessionId(), game);
+        if (req.user) {
+            console.log(`Generated session ${sessionId} for user ${req.user.username}`);
+        }
         console.log(`Generated session ${sessionId} with combination ${game.getCombination()}`);
         res.json(gameInit);
     } catch (err) {
@@ -80,7 +98,7 @@ router.post('/play/start', async (req, res, next) => {
     }
 })
 
-router.post('/play/guess', async (req, res, next) => {
+router.post('/play/guess', authenticateJWT, async (req, res, next) => {
     try {
         const data = req.body;
         let game = cache.get(data.sessionId);

@@ -6,7 +6,8 @@ $(document).ready(function () {
         fetch("/register", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                // This header is needed to ensure express parses JSON correctly
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 username: usernameLogIn,

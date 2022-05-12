@@ -14,6 +14,7 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                _token: localStorage.getItem("token"),
                 numDigits: numDigitsRequest,
                 numAttempts: numAttemptsRequest,
             }),
@@ -130,6 +131,7 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                _token: localStorage.getItem("token"),
                 // Session ID is needed to load game data from cache
                 sessionId: game.sessionId,
                 guess: guess,
