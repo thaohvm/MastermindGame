@@ -12,6 +12,10 @@ beforeEach(async () => {
     });
 });
 
+afterAll(async () => {
+    await db.end();
+})
+
 describe("User", () => {
     test("can register", async () => {
         let u = await User.register({
@@ -30,16 +34,4 @@ describe("User", () => {
         isValid = await User.authenticate("test", "xxx");
         expect(isValid).toBeFalsy();
     });
-})
-
-// beforeEach(async => {
-//     await db.query("BEGIN");
-// })
-
-// afterEach(async => {
-//     await db.query("ROLLBACK");
-// })
-
-afterAll(async () => {
-    await db.end();
 })

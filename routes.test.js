@@ -3,11 +3,16 @@ const request = require("supertest");
 const express = require("express");
 
 const app = require("./app");
+const db = require("./db");
 
 jest.mock('./models/combination', () => ({
     ...(jest.requireActual('./models/combination')),
     getRandomInt: jest.fn(() => [1, 2, 3, 4])
 }))
+
+afterAll(async () => {
+    await db.end();
+})
 
 describe("POST /play/start", () => {
     test("should return full init data", async () => {
