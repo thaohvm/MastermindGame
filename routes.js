@@ -2,6 +2,7 @@
 let cache = require("memory-cache");
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
+const jwt = require("jsonwebtoken");
 
 const config = require('./config');
 const { Game } = require('./models/game');
@@ -23,7 +24,8 @@ router.get('/play', async (req, res, next) => {
     }
 })
 
-// Backend APIs
+// ******** BACKEND APIS ********
+
 router.post('/play/start', async (req, res, next) => {
     try {
         let sessionId = uuidv4();
@@ -63,16 +65,25 @@ router.post('/play/guess', async (req, res, next) => {
         res.json({ error: err.message })
     }
 })
-// ******************************************** USER ROUTES ***********************************************
+
+// ******** USER ROUTES ********
+
+router.get('/login', (req, res, next) => {
+    res.render("login.html");
+})
+
+router.get('/register', (req, res, next) => {
+    res.render("register.html");
+})
 
 /** login: {username, password} => {token} */
 
-router.post("user/login", async function (req, res, next) {
+router.post("/login", async function (req, res, next) {
     try {
         let { username, password } = req.body;
         if (await User.authenticate(username, password)) {
-            let token = jwt.sign({ username }, SECRET_KEY);
-            return res.json({ token });
+            let token = jwt.sign({ username }, config.db.SECRET_KEY);
+            return res.json({ token, "message" : "login" });
         } else {
             throw new ExpressError("Invalid username/password", 400);
         }
@@ -88,10 +99,10 @@ router.post("user/login", async function (req, res, next) {
  *
  */
 
-router.post("/user/register", async function (req, res, next) {
+router.post("/register", async function (req, res, next) {
     try {
         let { username } = await User.register(req.body);
-        let token = jwt.sign({ username }, SECRET_KEY);
+        let token = jwt.sign({ username }, config.db.SECRET_KEY);
         return res.json({ token });
     }
 

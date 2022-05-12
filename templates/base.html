@@ -15,14 +15,33 @@
 </head>
 
 <body>
-    <div>
-        <nav class="navbar">
-            <div class="container">
-                <a class="nav-link" href="/rule">Game Rule</a>
-                <a class="nav-link" href="/play">Play</a>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/rule">Game Rule |</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/play">Play |</a>
+                    </li>
+                    <!-- If user login  -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Logout |</a>
+                    </li>
+                    <!-- If user logout -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/login">Login |</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/register">Sign Up |</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+
     {% block content %}{% endblock %}
     </div>
 
