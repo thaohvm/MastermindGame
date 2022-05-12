@@ -3,7 +3,6 @@ $(document).ready(function () {
         localStorage.removeItem("token");
         location.href = "/rule";
     })
-
     const token = localStorage.getItem("token");
     if (token) (
         fetch("/auth", {
@@ -25,6 +24,10 @@ $(document).ready(function () {
                     $("#nav-register").hide();
                     $("#nav-logout").show();
                     $("#nav-username").show().text(`Hi, ${data.user.username}`);
+
+                    if (window.location.href.indexOf("/login") > -1) {
+                        location.href = "/rule";
+                    }
                 }
             })
             .catch((error) => console.log(error))

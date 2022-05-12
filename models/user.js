@@ -1,5 +1,6 @@
 "use strict";
 const bcrypt = require('bcrypt');
+const res = require('express/lib/response');
 
 const config = require('../config');
 const db = require('../db');
@@ -14,7 +15,7 @@ class User {
             WHERE username = $1`,
             [username],
         );
-        if (duplicateCheck.length === 0) {
+        if (duplicateCheck.rows.length > 0) {
             throw new BadRequestError(`Duplicate username: ${username}`);
         }
         const hashedPassword = await bcrypt.hash(password, config.db.BCRYPT_WORK_FACTOR);
@@ -36,7 +37,7 @@ class User {
         let user = result.rows[0];
 
         return user && await bcrypt.compare(password, user.password);
-      }
+    }
 }
 
 module.exports = User;

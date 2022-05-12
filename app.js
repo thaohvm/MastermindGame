@@ -30,11 +30,4 @@ app.use(function (req, res, next) {
     return next(notFoundError)
 });
 
-// generic error handler
-// app.use((err, req, res, next) => {
-//     res.status(err.status || 500);
-
-//     return res.render("error.html", { err });
-// });
-
 module.exports = app;

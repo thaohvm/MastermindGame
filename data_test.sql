@@ -1,4 +1,4 @@
-\c mastermind
+\c mastermind_test
 
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS users;

@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const config = require('./config');
 const { Game } = require('./models/game');
 const User = require('./models/user');
-const ExpressError = require('./error');
+const { BadRequestError, UnauthorizedError } = require('./error');
 const { authenticateJWT } = require('./middleware/auth');
 
 const router = new express.Router();
@@ -40,8 +40,13 @@ router.post("/register", async function (req, res, next) {
         let token = jwt.sign({ username }, config.db.SECRET_KEY);
         return res.json({ token });
     } catch (err) {
-        res.status(500);
-        res.json({ error: err.message })
+        if (err instanceof BadRequestError) {
+            res.status(400);
+            res.json({ error: err.message });
+        } else {
+            res.status(500);
+            res.json({ error: err.message });
+        }
     }
 });
 
@@ -50,13 +55,14 @@ router.post("/login", async function (req, res, next) {
         const { username, password } = req.body;
         if (await User.authenticate(username, password)) {
             const token = jwt.sign({ username }, config.db.SECRET_KEY);
-            return res.json({ token });
+            res.json({ token });
         } else {
-            throw new ExpressError("Invalid username/password", 400);
+            res.status(401);
+            res.json({ error: "Invalid username/password" });
         }
     } catch (err) {
         res.status(500);
-        res.json({ error: err.message })
+        res.json({ error: err.message });
     }
 });
 
@@ -94,7 +100,7 @@ router.post('/play/start', authenticateJWT, async (req, res, next) => {
         res.json(gameInit);
     } catch (err) {
         res.status(500);
-        res.json({ error: err.message })
+        res.json({ error: err.message });
     }
 })
 
@@ -110,10 +116,9 @@ router.post('/play/guess', authenticateJWT, async (req, res, next) => {
         }
         let result = game.handleGuess(data.guess);
         res.json(result)
-        console.log(result)
     } catch (err) {
         res.status(500);
-        res.json({ error: err.message })
+        res.json({ error: err.message });
     }
 })
 
