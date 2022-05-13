@@ -5,10 +5,17 @@ const { password } = require('pg/lib/defaults');
 
 const config = require('../config');
 const db = require('../db');
-const { BadRequestError, UnauthorizedError, NotFoundError } = require('../error');
+const { BadRequestError } = require('../error');
 
+/** Class representing a user in database */
 class User {
-    static async register({ username, password }) {
+    /**
+     * Register a new user to the db
+     * @param {string} username The player's username
+     * @param {string} password The player's password
+     * @returns {{string, string}} The username and hashed password
+     */
+    static async register(username, password) {
         // Try to find the user first
         const duplicateCheck = await db.query(
             `SELECT username
@@ -31,6 +38,13 @@ class User {
         return result.rows[0];
     }
 
+    /**
+     * Check if the given username and password matched with the corresponding
+     * hashed password in the db
+     * @param {string} username The player's username
+     * @param {string} password The player's password
+     * @returns {boolean} True if user is authenticated
+     */
     static async authenticate(username, password) {
         const result = await db.query(
             `SELECT password FROM users WHERE username = $1`,
@@ -38,18 +52,6 @@ class User {
         let user = result.rows[0];
 
         return user && await bcrypt.compare(password, user.password);
-    }
-
-    static async get(username) {
-        const result = await db.query(
-            `SELECT username, password
-            FROM users
-            WHERE username = $1`,
-            [username]
-        )
-        const user = result.rows[0];
-        if (!user) throw new NotFoundError(`No user: ${username}`);
-        return user;
     }
 }
 

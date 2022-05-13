@@ -6,11 +6,6 @@ const { BadRequestError, UnauthorizedError, NotFoundError } = require('../error'
 beforeEach(async () => {
     await db.query("DELETE FROM sessions");
     await db.query("DELETE FROM users");
-
-    let u = await User.register({
-        username: "test",
-        password: "password",
-    });
 });
 
 afterAll(async () => {
@@ -19,10 +14,7 @@ afterAll(async () => {
 
 describe("User", () => {
     test("can register", async () => {
-        let u = await User.register({
-            username: "joel",
-            password: "password",
-        });
+        const u = await User.register("joel", "password");
 
         expect(u.username).toBe("joel");
         expect(u.password).not.toBe(undefined);
@@ -32,35 +24,21 @@ describe("User", () => {
     });
 
     test("should throw bad request error if username has been exist", async () => {
+        await User.register("test", "password");
         try {
-            await User.register({
-                username: "test",
-                password: "psw",
-            });
+            await User.register("test", "password");
         } catch (err) {
             expect(err instanceof BadRequestError).toBeTruthy();
         }
     });
 
     test("can authenticate", async () => {
+        await User.register("test", "password");
+
         let isValid = await User.authenticate("test", "password");
         expect(isValid).toBeTruthy();
 
-        isValid = await User.authenticate("test", "xxx");
+        isValid = await User.authenticate("test", "invalid");
         expect(isValid).toBeFalsy();
-    });
-
-    test("can get detail of requested user", async () => {
-        let user = await User.get("test");
-        expect(user.username).toEqual("test");
-        expect((user.password).startsWith("$2b$")).toEqual(true);
-    });
-
-    test("should thrown error if requested user is not exist", async () => {
-        try {
-            await User.get("noUser");
-        } catch (err) {
-            expect(err instanceof NotFoundError).toBeTruthy();
-        }
     });
 })

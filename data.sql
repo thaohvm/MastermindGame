@@ -9,12 +9,13 @@ CREATE TABLE users (
 );
 
 CREATE TABLE sessions (
-    session_id text PRIMARY KEY,
-    username VARCHAR(25) REFERENCES users ON DELETE CASCADE,
+    session_id TEXT PRIMARY KEY,
+    username VARCHAR(25),
     min INTEGER,
     max INTEGER,
     num_attempts INTEGER,
     num_digits INTEGER,
-    is_finished boolean,
-    state text
+    is_finished BOOLEAN,
+    is_won BOOLEAN,
+    state TEXT
 );

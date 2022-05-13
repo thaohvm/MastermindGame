@@ -12,7 +12,7 @@ class Combination {
      * @param {int} numDigits Number of intergers in the combination
      * @param {int} min Minumum value of the intergers (inclusive)
      * @param {int} max Maximum value of the intergers (inclusive)
-     * @returns {str} Full Random Generator URL
+     * @returns {string} Full Random Generator URL
      */
     static getRandomGeneratorUrl(numDigits, min, max) {
         return `${config.combination.BASE_URL}/?num=${numDigits}&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`;

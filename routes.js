@@ -1,14 +1,15 @@
 "use strict";
-let cache = require("memory-cache");
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
 const jwt = require("jsonwebtoken");
 
 const config = require('./config');
 const { Game } = require('./models/game');
+const Session = require('./models/session');
 const User = require('./models/user');
 const { BadRequestError, UnauthorizedError } = require('./error');
 const { authenticateJWT } = require('./middleware/auth');
+const { db } = require("./config");
 
 const router = new express.Router();
 
@@ -36,7 +37,7 @@ router.get('/play', async (req, res, next) => {
 
 router.post("/register", async function (req, res, next) {
     try {
-        let { username } = await User.register(req.body);
+        let { username } = await User.register(req.body.username, req.body.password);
         let token = jwt.sign({ username }, config.db.SECRET_KEY);
         return res.json({ token });
     } catch (err) {
@@ -52,8 +53,7 @@ router.post("/register", async function (req, res, next) {
 
 router.post("/login", async function (req, res, next) {
     try {
-        const { username, password } = req.body;
-        if (await User.authenticate(username, password)) {
+        if (await User.authenticate(req.body.username, req.body.password)) {
             const token = jwt.sign({ username }, config.db.SECRET_KEY);
             res.json({ token });
         } else {
@@ -92,7 +92,7 @@ router.post('/play/start', authenticateJWT, async (req, res, next) => {
             data.numAttempts ? data.numAttempts : config.game.NUM_ATTEMPTS
         );
         const gameInit = await game.init();
-        cache.put(game.getSessionId(), game);
+        await Session.put(game, req.user ? req.user.username : null);
         if (req.user) {
             console.log(`Generated session ${sessionId} for user ${req.user.username}`);
         }
@@ -107,7 +107,7 @@ router.post('/play/start', authenticateJWT, async (req, res, next) => {
 router.post('/play/guess', authenticateJWT, async (req, res, next) => {
     try {
         const data = req.body;
-        let game = cache.get(data.sessionId);
+        let game = await Session.get(data.sessionId);
         if (game === null) {
             // Throw error if sessionId doesn't exist
             res.status(404);
@@ -115,6 +115,7 @@ router.post('/play/guess', authenticateJWT, async (req, res, next) => {
             return res;
         }
         let result = game.handleGuess(data.guess);
+        await Session.put(game, req.user ? req.user.username : null);
         res.json(result)
     } catch (err) {
         res.status(500);

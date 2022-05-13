@@ -2,6 +2,7 @@
 const config = require('../config');
 const Combination = require('./combination');
 
+/** Class representing the initial metadata of a new game */
 class GameInit {
     constructor(sessionId, numDigits, min, max, numAttempts) {
         this.sessionId = sessionId;
@@ -12,6 +13,7 @@ class GameInit {
     }
 }
 
+/** Class representing the results of one guess */
 class GameResult {
     constructor(sessionId, numAttemptsLeft, numCorrectLocations, numCorrectNumbers, isFinished, combination) {
         this.sessionId = sessionId;
@@ -38,8 +40,15 @@ class Game {
 
         this.combination = null;
         this.guesses = [];
+        this.finished = false;
+        this.won = false;
     }
 
+    /**
+     * Generate a new combination for the game and return a fully
+     * initialized game metadata object
+     * @returns {GameInit} An initialized game metadata object
+     */
     async init() {
         this.combination = await Combination.getRandomInt(this.numDigits, this.min, this.max);
 
@@ -52,6 +61,12 @@ class Game {
         )
     }
 
+    /**
+     * Handle a new guess from the user, update internal state, then
+     * return back the results
+     * @param {int[]} guess An array of digits guessing from user
+     * @returns {GameResult} Results of the guess
+     */
     handleGuess(guess) {
         let result = new GameResult(
             this.sessionId,
@@ -76,8 +91,10 @@ class Game {
             }
         }
 
-        result.isFinished = result.numAttemptsLeft === 0 || result.numCorrectLocations === this.numDigits;
-        if (result.isFinished) {
+        this.finished = result.numAttemptsLeft === 0 || result.numCorrectLocations === this.numDigits;
+        result.isFinished = this.finished;
+        if (this.finished) {
+            this.won = result.numCorrectLocations === this.numDigits;
             result.combination = this.combination
         }
 
@@ -88,24 +105,52 @@ class Game {
         return result;
     }
 
+    /**
+     * Return the combination of this game
+     * @returns {int[]} Array of combination digits
+     */
     getCombination() {
         return this.combination;
     }
 
+    /**
+     * Return history of guesses and results
+     * @returns {{int[], GameResult}[]} An array of past guesses and results
+     */
     getGuesses() {
         return this.guesses;
     }
 
+    /**
+     * Return the session ID
+     * @returns {string} Session ID
+     */
     getSessionId() {
         return this.sessionId;
     }
 
+    /**
+     * Return number of attempts left
+     * @returns {int} Number of attemps left
+     */
     getAttemptsLeft() {
         return this.numAttempts - this.guesses.length;
     }
 
+    /**
+     * Return finishing status
+     * @returns {boolean} True if the game already finishes
+     */
     isFinished() {
-        return this.guesses.length === 0 || this.guesses[this.guesses.length - 1].result.isFinished;
+        return this.finished;
+    }
+
+    /**
+     * Return won status
+     * @returns {boolean} True if user won
+     */
+    isWon() {
+        return this.won;
     }
 }
 

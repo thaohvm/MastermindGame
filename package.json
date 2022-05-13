@@ -25,7 +25,6 @@
     "jest": "^28.1.0",
     "jsdoc": "^3.6.10",
     "jsonwebtoken": "^8.5.1",
-    "memory-cache": "^0.2.0",
     "nunjucks": "^3.2.3",
     "pg": "^8.7.3",
     "supertest": "^6.2.3",

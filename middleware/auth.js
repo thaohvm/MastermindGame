@@ -1,8 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
-/** Middleware: Authenticate user. */
-
 function authenticateJWT(req, res, next) {
   try {
     const tokenFromBody = req.body._token;
@@ -14,34 +12,6 @@ function authenticateJWT(req, res, next) {
   }
 }
 
-/** Middleware: Requires user is authenticated. */
-
-function ensureLoggedIn(req, res, next) {
-  if (!req.user) {
-    return next({ status: 401, message: "Unauthorized" });
-  } else {
-    return next();
-  }
-}
-
-/** Middleware: Requires correct username. */
-
-function ensureCorrectUser(req, res, next) {
-  try {
-    if (req.user.username === req.params.username) {
-      return next();
-    } else {
-      return next({ status: 401, message: "Unauthorized" });
-    }
-  } catch (err) {
-    // errors would happen here if we made a request and req.user is undefined
-    return next({ status: 401, message: "Unauthorized" });
-  }
-}
-// end
-
 module.exports = {
   authenticateJWT,
-  ensureLoggedIn,
-  ensureCorrectUser
 };
