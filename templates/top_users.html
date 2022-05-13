@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>Top User</h1>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Wons</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for top_user in top_users %}
+            <tr>
+                <td>{{ top_user.username }}</td>
+                <td>{{ top_user.num_wons }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

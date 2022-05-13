@@ -33,6 +33,15 @@ router.get('/play', async (req, res, next) => {
     }
 })
 
+router.get('/top_users', async (req, res, next) => {
+    try {
+        let top_users = await Session.getTopWonUsers();
+        return res.render("top_users.html", { top_users })
+    } catch (e) {
+        return next(e)
+    }
+})
+
 // ******** BACKEND APIS ********
 
 router.post("/register", async function (req, res, next) {
@@ -107,7 +116,7 @@ router.post('/play/start', authenticateJWT, async (req, res, next) => {
 router.post('/play/guess', authenticateJWT, async (req, res, next) => {
     try {
         const data = req.body;
-        let game = await Session.get(data.sessionId);
+        let game = await Session.getGame(data.sessionId);
         if (game === null) {
             // Throw error if sessionId doesn't exist
             res.status(404);

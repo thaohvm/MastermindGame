@@ -4,7 +4,8 @@
 }
 
 nav {
-    display: -webkit-box;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 3em;
 }
 
@@ -35,5 +36,21 @@ a {
     text-decoration: none;
 }
 #mm-btn-replay {
+    text-align: center;
+}
+.table {
+    color: white;
+    border-bottom-width: 0;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+#nav-logout #nav-login #nav-register #nav-username {
+    float: right;
+}
+
+h5 #mm-btn-play{
+    justify-content: center;
     text-align: center;
 }

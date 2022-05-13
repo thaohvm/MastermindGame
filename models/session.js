@@ -61,7 +61,7 @@ class Session {
                 game.isWon(),
                 JSON.stringify(game),
                 ]);
-            let session = result.rows[0];
+            let session = result.rows[0].session_id;
             return session;
         }
     }
@@ -71,7 +71,7 @@ class Session {
      * @param {string} sessionId The game sessionId
      * @returns {Game} The parsed Game object from db
      */
-    static async get(sessionId) {
+    static async getGame(sessionId) {
         const result = await db.query(
             `SELECT state
             FROM sessions
@@ -96,12 +96,21 @@ class Session {
              AS num_wons
              FROM sessions
              WHERE is_won
-             GROUP BY username
-             ORDER BY wons
+             GROUP BY username, sessions.is_won
+             ORDER BY is_won
              DESC
              LIMIT 10`
         );
 
+        return result.rows;
+    }
+
+    static async getAllUser() {
+        const result = await db.query(
+            `SELECT username
+            FROM sessions
+            ORDER BY is_won`
+        );
         return result.rows;
     }
 }

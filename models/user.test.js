@@ -24,7 +24,6 @@ describe("User", () => {
     });
 
     test("should throw bad request error if username has been exist", async () => {
-        await User.register("test", "password");
         try {
             await User.register("test", "password");
         } catch (err) {
