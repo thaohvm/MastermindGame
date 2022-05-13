@@ -85,7 +85,7 @@ jest
 
 ## Code Structure
 
-
+<img src="https://raw.githubusercontent.com/thaohvm/MastermindGame/master/static/media/MastermindGame.jpg">
 
 ## Extensions implemented
 
