@@ -23,7 +23,7 @@ $(document).ready(function () {
                     $("#nav-login").hide();
                     $("#nav-register").hide();
                     $("#nav-logout").show();
-                    $("#nav-username").show().text(`Hi, ${data.user.username}`);
+                    $("#nav-username").show().text(`Hi, ${data.user.username}!`);
 
                     if (window.location.href.indexOf("/login") > -1) {
                         location.href = "/rule";

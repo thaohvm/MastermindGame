@@ -13,6 +13,10 @@ const { db } = require("./config");
 
 const router = new express.Router();
 
+router.get('/', (req, res, next) => {
+    res.redirect("/rule");
+})
+
 router.get('/login', (req, res, next) => {
     res.render("login.html");
 })
@@ -22,7 +26,7 @@ router.get('/register', (req, res, next) => {
 })
 
 router.get('/rule', (req, res, next) => {
-    res.render("game_rule.html");
+    res.render("rule.html");
 })
 
 router.get('/play', async (req, res, next) => {

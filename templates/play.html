@@ -10,13 +10,13 @@
 
 <div class="container" id="mm-config">
 
-    <div id="mm-digits-config">
+    <div class="mb-2" id="mm-digits-config">
         <label for="num-digits-request">Choose how many digits you want to guess against:</label>
         <select id="num-digits-request" name="num-digits-request">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
-            <option value="4">4</option>
+            <option value="4" selected>4</option>
             <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
@@ -26,8 +26,8 @@
         </select>
     </div>
 
-    <div id="mm-attempts-config">
-        <label for="num-attempts-request">Choose how many guesses you wish</label>
+    <div class="mb-2" id="mm-attempts-config">
+        <label for="num-attempts-request">Choose how many guesses you wish:</label>
         <select id="num-attempts-request" name="num-attempts-request">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -38,22 +38,22 @@
             <option value="7">7</option>
             <option value="8">8</option>
             <option value="9">9</option>
-            <option value="10">10</option>
+            <option value="10" selected>10</option>
         </select>
     </div>
-    <div>
+    <div class="mt-2">
         <button type="button" class="btn btn-primary" id="mm-btn-start">Start!</button>
     </div>
 </div>
 
 <div class="container">
-    <div id="mm-replay">
-        <button type="button" class="btn btn-primary" id="mm-btn-replay"><a href="/play">Replay</a></button>
+    <div class="my-3 col text-center" id="mm-replay">
+        <button type="button" class="btn btn-primary" id="mm-btn-replay" onclick="location.href='/play';">Replay</button>
     </div>
-    <div class="container" id="combination-result"></div>
-    <div class="container" id="mastermind"></div>
 
-    <div class="container" id="mm-result"></div>
+    <div class="container text-center" id="combination-result"></div>
+
+    <div class="container" id="mastermind"></div>
 </div>
 
 

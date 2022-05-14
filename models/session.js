@@ -95,7 +95,7 @@ class Session {
             `SELECT username, COUNT(*)
              AS num_wons
              FROM sessions
-             WHERE is_won
+             WHERE is_won AND username IS NOT NULL
              GROUP BY username, sessions.is_won
              ORDER BY is_won
              DESC

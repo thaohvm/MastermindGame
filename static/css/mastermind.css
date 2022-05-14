@@ -23,14 +23,12 @@ h1 {
     margin-bottom: 1em;
 }
 
-/* #mm-start #mm-replay #mm-play {
-    margin-top: 5em;
-    text-align: center;
-    padding-top: 3em;
-    justify-content: center;
-} */
-
 a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
     color: white;
     text-decoration: none;
 }

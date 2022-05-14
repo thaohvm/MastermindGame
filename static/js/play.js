@@ -29,8 +29,8 @@ $(document).ready(function () {
 
     function resetGame() {
         $("#mastermind").html(`
-            <div id="mm-attempts"></div>
-            <div id="mm-result"></div>
+            <div class="my-2 text-center" id="mm-attempts"></div>
+            <div class="my-4 text-center fs-3" id="mm-result"></div>
             <div id="mm-game"></div>`)
     }
 
@@ -53,7 +53,7 @@ $(document).ready(function () {
         for (let i = 0; i < game.numDigits; i++) {
             let digit = $("<div>")
                 .attr("id", `mm-digit-${curAttempt}-${i}`)
-                .addClass("col-2");
+                .addClass("col-2 mt-2");
 
             let select = $("<select>")
                 .attr("id", `mm-select-${curAttempt}-${i}`)
@@ -76,7 +76,7 @@ $(document).ready(function () {
         // Add guess button and guess result to the last column, all hidden by default
         attempt.append(
             $("<div>")
-                .addClass("col-4")
+                .addClass("col mt-2")
                 .append(
                     $("<button>")
                         .attr("id", `mm-attempt-btn-${curAttempt}`)

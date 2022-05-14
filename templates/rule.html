@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1>Game Rule</h1>
+    <h1>Game Rules</h1>
     <p>This is a game where you try to guess the number combinations.
     <ul>
         <li>Starting by select the number of digits that you want to guess and number of attempts you wish.</li>
@@ -11,10 +11,9 @@
         <li>Duplicate numbers are allowed.</li>
     </ul>
 
-    <div id="mm-play">
-        <button type="button" class="btn btn-primary" id="mm-btn-play"><a href="/play">Play Game!</a></button>
+    <div class="col text-center" id="mm-play">
+        <button type="button" class="btn btn-primary" id="mm-btn-play" onclick="location.href='/play';">Play Game!</button>
     </div>
 </div>
-
 
 {% endblock %}
