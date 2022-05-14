@@ -83,12 +83,14 @@ or run all test by
 jest
 ```
 
-## Code Structure
+## Project Structure
 
 ```
 .
-└── MastermindGame/
-    ├── models/
+└── MastermindGame/  # project root
+    ├── docs/  # API documentation
+    │   ├── ...
+    ├── models/  # backend classes and unittest
     │   ├── combination.js
     │   ├── combination.test.js
     │   ├── game.js
@@ -97,7 +99,7 @@ jest
     │   ├── session.test.js
     │   ├── user.js
     │   └── user.test.js
-    ├── static/
+    ├── static/  # frontend static resources
     │   ├── css/
     │   │   └── mastermind.css
     │   └── js/
@@ -105,7 +107,7 @@ jest
     │       ├── login.js
     │       ├── play.js
     │       └── register.js
-    ├── templates/
+    ├── templates/  # html templates
     │   ├── base.html
     │   ├── error.html
     │   ├── game_rule.html
@@ -113,13 +115,13 @@ jest
     │   ├── play.html
     │   ├── register.html
     │   └── top_users.html
-    ├── middleware/
+    ├── middleware/  # routing middleware
     │   └── auth.js
     ├── app.js
-    ├── routes.js
+    ├── routes.js  # backend routing handlers
     ├── routes.test.js
     ├── server.js
-    ├── config.js
+    ├── config.js  # project configurable variables
     ├── data.sql
     ├── data_test.sql
     ├── db.js
@@ -135,5 +137,3 @@ jest
 
 - User has chance to choose the number digits of combinations as well as the number of attempts.
 - User can create an account and has chance to display their name on top 10 user who have the highest wins.
-
-This README should explain how an interviewer could run your code, document your thought process and/or code structure, and describe any creative extensions attempted or implemented. There is no prescribed format for the README, but it should be clear and unambiguous in listing all the steps in building, running, and playing the game you built (you should make no assumptions about what software the interviewer has, and err on the side of being explicit).
