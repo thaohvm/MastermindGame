@@ -85,7 +85,51 @@ jest
 
 ## Code Structure
 
-<img src="https://raw.githubusercontent.com/thaohvm/MastermindGame/master/static/media/MastermindGame.jpg">
+```
+.
+└── MastermindGame/
+    ├── models/
+    │   ├── combination.js
+    │   ├── combination.test.js
+    │   ├── game.js
+    │   ├── game.test.js
+    │   ├── session.js
+    │   ├── session.test.js
+    │   ├── user.js
+    │   └── user.test.js
+    ├── static/
+    │   ├── css/
+    │   │   └── mastermind.css
+    │   └── js/
+    │       ├── auth.js
+    │       ├── login.js
+    │       ├── play.js
+    │       └── register.js
+    ├── templates/
+    │   ├── base.html
+    │   ├── error.html
+    │   ├── game_rule.html
+    │   ├── login.html
+    │   ├── play.html
+    │   ├── register.html
+    │   └── top_users.html
+    ├── middleware/
+    │   └── auth.js
+    ├── app.js
+    ├── routes.js
+    ├── routes.test.js
+    ├── server.js
+    ├── config.js
+    ├── data.sql
+    ├── data_test.sql
+    ├── db.js
+    ├── error.js
+    ├── LICENSE
+    ├── jsdoc.conf.json
+    ├── README.md
+    ├── package.json
+    └── package-lock.json
+```
 
 ## Extensions implemented
 
