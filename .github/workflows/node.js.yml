@@ -42,3 +42,4 @@ jobs:
     - run: npm test
       env:
         DB_URI: "postgresql://user:pass@localhost:5432/mastermind"
+        NODE_ENV: "github"
