@@ -2,8 +2,21 @@ const { Client } = require("pg");
 
 const config = require('./config');
 
-const client = new Client(config.db.DB_URI);
+let db;
 
-client.connect();
+if (process.env.NODE_ENV === "production") {
+    db = new Client({
+        connectionString: config.db.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false
+        }
+    });
+} else {
+    db = new Client({
+        connectionString: config.db.DATABASE_URL
+    });
+}
 
-module.exports = client;
+db.connect();
+
+module.exports = db;
