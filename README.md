@@ -9,9 +9,11 @@ An implementation of Mastermind game
 
 Project's title: MastermindGame
 
-This project is a web application that simulate the Mastermind game where you can play online throught the demo link or you can clone the code and run locally on your computer.
+This project is a web application that simulates the Mastermind game where you can play online through the demo link or clone the code then run locally on your computer.
 
 This project is deployed on:
+
+The code documentation is automatically generated through link: https://htmlpreview.github.io/?https://raw.githubusercontent.com/thaohvm/MastermindGame/master/docs/index.html
 
 ## Game rule
 
@@ -33,7 +35,7 @@ Duplicate numbers are allowed.
 * [PostSQL](https://www.postgresql.org/)
 * [Jinja](https://jinja2docs.readthedocs.io/en/stable/)
 
-## Geting start
+## Getting started
 ### Installation
 1. Clone the repo
 ```

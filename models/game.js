@@ -115,7 +115,7 @@ class Game {
 
     /**
      * Return history of guesses and results
-     * @returns {Array.<{guess: int, result: GameResult}>} An array of past guesses and results
+     * @returns {Array.<{guess: int[], result: GameResult}>} An array of past guesses and results
      */
     getGuesses() {
         return this.guesses;

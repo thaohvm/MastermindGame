@@ -1,12 +1,11 @@
 .nav-link {
     color: white;
-
 }
 
 nav {
     display: flex;
-    flex-direction: column;
-    margin-bottom: 3em;
+    flex-direction: row;
+    margin-bottom: 2em;
 }
 
 body {
@@ -24,20 +23,18 @@ h1 {
     margin-bottom: 1em;
 }
 
-#mm-start #mm-replay #mm-play {
+/* #mm-start #mm-replay #mm-play {
     margin-top: 5em;
     text-align: center;
     padding-top: 3em;
     justify-content: center;
-}
+} */
 
 a {
     color: white;
     text-decoration: none;
 }
-#mm-btn-replay {
-    text-align: center;
-}
+
 .table {
     color: white;
     border-bottom-width: 0;
@@ -46,11 +43,10 @@ a {
     margin-right: auto;
     margin-top: 2em;
 }
-#nav-logout #nav-login #nav-register #nav-username {
-    float: right;
-}
 
-h5 #mm-btn-play{
+h5 #mm-btn-play #mm-replay #mm-btn-replay{
     justify-content: center;
     text-align: center;
+    color: white;
+    display: inline-block;
 }
