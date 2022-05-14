@@ -41,5 +41,5 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
       env:
-        DB_URI: "postgresql://user:pass@localhost:5432/mastermind"
+        DATABASE_URL: "postgresql://user:pass@localhost:5432/mastermind"
         NODE_ENV: "github"
