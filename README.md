@@ -11,78 +11,115 @@ Project's title: MastermindGame
 
 This project is a web application that simulates the Mastermind game where you can play online through the demo link or clone the code then run locally on your computer.
 
-This project is deployed on:
-
-The code documentation is automatically generated through link: https://htmlpreview.github.io/?https://raw.githubusercontent.com/thaohvm/MastermindGame/master/docs/index.html
+Try me at [mmind-game.herokuapp.com](https://mmind-game.herokuapp.com/)!
 
 ## Game rule
 
-At the start of the game, the computer will randomly select a pattern of four different numbers from a total of 8 different numbers.
+At the start of the game, the server will randomly select a combination of different numbers (default to 4 numbers from 0 to 7 inclusively, with duplicates allowed). A player will have a number of attempts to guess the combinations (default to 10 attempts).
 
-A player will have 10 attempts to guess the number combinations.
+At the end of each guess, the server will provide one of the following responses: (1) the player had guessed a correct number, (2) the player had guessed a correct number and its correct location, (3) the player's guess was incorrect. The feedback to the user will be in the form of total "correct positions" and total "correct numbers" (but incorrect location). If the number is counted as "correct position", it will not be counted in "correct numbers".
 
-At the end of each guess, computer provid one of the following response as feedback whether the player had guesses a correct number and its correct location.
+## Built with
 
-If the number is counted as "correct position", it will not be counted in "correct number".
-
-Duplicate numbers are allowed.
-
-## Build with
-
-* [Bootstrap](https://getbootstrap.com)
-* [Nodejs](https://nodejs.dev)
+* [Node.js](https://nodejs.dev)
 * [Express](https://expressjs.com/en/5x/api.html)
 * [PostSQL](https://www.postgresql.org/)
 * [Jinja](https://jinja2docs.readthedocs.io/en/stable/)
+* [Bootstrap](https://getbootstrap.com)
+* [JSDoc](https://jsdoc.app/)
+* [Jest](https://jestjs.io/)
 
 ## Getting started
+
+## Prerequisites
+
+In order to run/develop this project locally, Node.js and PostgreSQL (including CLI tools) must be installed on the developing machine.
+- Node.js could be downloaded and installed on corresponding platform on [Node.js website](https://nodejs.org/en/download/)
+- PostgreSQL installation instructions are available on [PostgreSQL website](https://www.postgresql.org/docs/current/tutorial-install.html)
+
 ### Installation
-1. Clone the repo
+
 ```
+# Clone the repo
 git clone https://github.com/thaohvm/MastermindGame.git
-```
-2. Create database for both running website and testing
-```
+cd MastermindGame
+
+# Create PostgreSQL database
 createdb mastermind
-createdb masterming_test
-```
-3. Set up table for database
-```
-cd MastermindGame
-psql < data.sql
-```
-4. Install requirements packages
-```
-cd MastermindGame
+
+# Set up tables for the database
+psql < data_test.sql
+
+# Install requirements packages
 npm install
+
+# Run the website
+npm run dev
 ```
-5. Run the website
-```
-npm server.js
-```
-or
-```
-nodemon server.js
-```
-6. Go to local website: http://localhost:3000
+
+The game should be available at: http://localhost:3000
+
+### Documentation
+
+Backend classes and APIs are documented with docstring with documentation auto-generated via JSDoc and available to [view online](https://htmlpreview.github.io/?https://github.com/thaohvm/MastermindGame/blob/master/docs/index.html).
 
 ### Testing
-1. Testing models:
+
+Backend classes and APIs have unittest coverage that is automatically validated on each commit with [Github Action](https://github.com/thaohvm/MastermindGame/actions) or manually as follows:
+
 ```
+# Test models
 jest combination.test
 jest game.test
 jest user.test
 jest session.test
-```
-2. Testing routes:
-```
+
+# Test routes
 jest routes.test
+
+# Run all tests
+npm run test
 ```
 
-or run all test by
+### Deployment
+
+This project is currently deployed on [Heroku](https://mmind-game.herokuapp.com/) and could be scale easily with more workers as the game states are stored in the database. For more up-to-date instructions, please follow [Heroku documentation](https://devcenter.heroku.com/articles/deploying-nodejs).
 
 ```
-jest
+# Login and create a new app
+heroku login
+heroku create <unique app name>
+
+# Configure PostgreSQL
+heroku addons:create heroku-postgresql:hobby-dev
+heroku pg:psql < data.sql
+
+# Deploy to heroku
+git push heroku master
+```
+
+### Configuration
+
+The server has several configurable environment variables that could be used to customize the game experience. These variables are defined in [`config.js`](config.js) and as details below:
+
+- `PORT`: (3000) port the server will listen to;
+- `COMBINATION_BASE_URL`: (https://www.random.org/integers) Random Generator base URL
+- `GAME_NUM_ATTEMPTS`: (10) default number of attempts
+- `GAME_NUM_DIGITS`: (4) default number of digits in a combination
+- `GAME_MIN`: (0) default digit minimum
+- `GAME_MAX`: (7) default digit maximum
+- `DATABASE_URL`: (postgresql:///mastermind_test) database connection
+- `SECRET_KEY`: (secret) token encryption key, must be changed on production deployment
+- `BCRYPT_WORK_FACTOR`: (12) hashing work factor
+
+To override the default values, you could provide the matching environment variables. For example:
+```
+# Override locally
+GAME_MIN=4 GAME_MAX=8 npm run dev
+
+# Override in heroku
+heroku config:set GAME_MIN=4
+heroku config:set GAME_MAX=8
 ```
 
 ## Project Structure

@@ -25,10 +25,6 @@ class GameResult {
     }
 }
 
-// TODO:
-// How to handle when called if finished (e.g., no attempt left)
-// How to handle incorrect input (e.g., more digits than allowed)
-
 /** Class keeping track and handling game states */
 class Game {
     constructor(sessionId, numDigits = config.game.NUM_DIGITS, min = config.game.MIN, max = config.game.MAX, numAttempts = config.game.NUM_ATTEMPTS) {
