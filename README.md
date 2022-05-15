@@ -95,6 +95,7 @@ heroku addons:create heroku-postgresql:hobby-dev
 heroku pg:psql < data.sql
 
 # Deploy to heroku
+heroku config:set SECRET_KEY=<new random secret>
 git push heroku master
 ```
 

@@ -16,6 +16,7 @@ class User {
      * @returns {{string, string}} The username and hashed password
      */
     static async register(username, password) {
+        this.checkValidInput(username, password);
         // Try to find the user first
         const duplicateCheck = await db.query(
             `SELECT username
@@ -46,12 +47,25 @@ class User {
      * @returns {boolean} True if user is authenticated
      */
     static async authenticate(username, password) {
+        this.checkValidInput(username, password);
         const result = await db.query(
             `SELECT password FROM users WHERE username = $1`,
             [username]);
         let user = result.rows[0];
 
         return user && await bcrypt.compare(password, user.password);
+    }
+
+    /**
+     * Check if username and password have valid format and
+     * throw BadRequestError otherwise
+     * @param {string} username The player's username
+     * @param {string} password The player's password
+     */
+    static checkValidInput(username, password) {
+        if (!username || !password) {
+            throw new BadRequestError("Invalid username/password");
+        }
     }
 }
 
