@@ -31,7 +31,7 @@ At the end of each guess, the server will provide one of the following responses
 
 ## Getting started
 
-## Prerequisites
+### Prerequisites
 
 In order to run/develop this project locally, Node.js and PostgreSQL (including CLI tools) must be installed on the developing machine.
 - Node.js could be downloaded and installed on corresponding platform on [Node.js website](https://nodejs.org/en/download/)
@@ -175,5 +175,5 @@ heroku config:set GAME_MAX=8
 
 ## Extensions implemented
 
-- User has chance to choose the number digits of combinations as well as the number of attempts.
-- User can create an account and has chance to display their name on top 10 user who have the highest wins.
+- Players can select different difficulties by choosing the number digits in the combinations as well as the number of attempts
+- Players can optionally signup for an account to enroll in top 10 players billboard with highest wins

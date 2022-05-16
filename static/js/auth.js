@@ -3,6 +3,7 @@ $(document).ready(function () {
         localStorage.removeItem("token");
         location.href = "/rule";
     })
+
     const token = localStorage.getItem("token");
     if (token) (
         fetch("/auth", {

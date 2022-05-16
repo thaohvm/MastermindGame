@@ -64,6 +64,7 @@ router.post("/register", async function (req, res, next) {
     }
 });
 
+
 router.post("/login", async function (req, res, next) {
     try {
         if (await User.authenticate(req.body.username, req.body.password)) {
@@ -75,8 +76,13 @@ router.post("/login", async function (req, res, next) {
             res.json({ error: "Invalid username/password" });
         }
     } catch (err) {
-        res.status(500);
-        res.json({ error: err.message });
+        if (err instanceof BadRequestError) {
+            res.status(400);
+            res.json({ error: err.message });
+        } else {
+            res.status(500);
+            res.json({ error: err.message });
+        }
     }
 });
 
