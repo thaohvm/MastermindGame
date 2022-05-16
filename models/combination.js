@@ -1,6 +1,5 @@
 "use strict";
 const { default: axios } = require('axios');
-const ExpressError = require('../error');
 
 const config = require('../config');
 
@@ -34,7 +33,6 @@ class Combination {
                     console.log("Invalid data format from Random Generator!");
                     return Combination.getLocalRandomInt(numDigits, min, max);
                 }
-
                 return String(response.data).trim().split('\n').map(el => parseInt(el));
             })
             .catch(function (error) {

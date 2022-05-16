@@ -24,10 +24,18 @@ At the end of each guess, the server will provide one of the following responses
 * [Node.js](https://nodejs.dev)
 * [Express](https://expressjs.com/en/5x/api.html)
 * [PostSQL](https://www.postgresql.org/)
+* [Jest](https://jestjs.io/)
 * [Jinja](https://jinja2docs.readthedocs.io/en/stable/)
 * [Bootstrap](https://getbootstrap.com)
 * [JSDoc](https://jsdoc.app/)
-* [Jest](https://jestjs.io/)
+
+## Highlights
+
+High level approach through-out the project is to ensure the server is reliable, scalable, and well documented.
+
+Node.js follows single-threaded design, so it is exceptionally fast and can handle more concurrent client requests. Game states are kept track in database instead of in-memory to allow worker to be stateless and scale easily.
+
+Backend classes and APIs are documented with docstring with documentation auto-generated via JSDoc and available to [view online](https://htmlpreview.github.io/?https://github.com/thaohvm/MastermindGame/blob/master/docs/index.html). Backend classes and APIs also have unittest coverage that is automatically validated on each commit with [Github Action](https://github.com/thaohvm/MastermindGame/actions).
 
 ## Getting started
 

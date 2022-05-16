@@ -132,7 +132,7 @@ $(document).ready(function () {
             },
             body: JSON.stringify({
                 _token: localStorage.getItem("token"),
-                // Session ID is needed to load game data from cache
+                // Session ID is needed to load game data from db
                 sessionId: game.sessionId,
                 guess: guess,
             }),
