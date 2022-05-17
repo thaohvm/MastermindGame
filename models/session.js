@@ -96,8 +96,8 @@ class Session {
              AS num_wons
              FROM sessions
              WHERE is_won AND username IS NOT NULL
-             GROUP BY username, sessions.is_won
-             ORDER BY is_won
+             GROUP BY username
+             ORDER BY num_wons
              DESC
              LIMIT 10`
         );
