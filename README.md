@@ -23,7 +23,7 @@ At the end of each guess, the server will provide one of the following responses
 
 * [Node.js](https://nodejs.dev)
 * [Express](https://expressjs.com/en/5x/api.html)
-* [PostSQL](https://www.postgresql.org/)
+* [PostgreSQL](https://www.postgresql.org/)
 * [Jest](https://jestjs.io/)
 * [Jinja](https://jinja2docs.readthedocs.io/en/stable/)
 * [Bootstrap](https://getbootstrap.com)

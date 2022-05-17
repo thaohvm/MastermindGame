@@ -1,7 +1,6 @@
 "use strict";
 const bcrypt = require('bcrypt');
 const res = require('express/lib/response');
-const { password } = require('pg/lib/defaults');
 
 const config = require('../config');
 const db = require('../db');

@@ -48,6 +48,10 @@ router.get('/top_users', async (req, res, next) => {
 
 // ******** BACKEND APIS ********
 
+/**
+ * Handle a POST request to register a new user given a username and password;
+ * return a signed token if succeed
+ */
 router.post("/register", async function (req, res, next) {
     try {
         let { username } = await User.register(req.body.username, req.body.password);
@@ -64,7 +68,10 @@ router.post("/register", async function (req, res, next) {
     }
 });
 
-
+/**
+ * Handle a POST request to login an existing user given a username and password;
+ * return a signed token if succeed
+ */
 router.post("/login", async function (req, res, next) {
     try {
         if (await User.authenticate(req.body.username, req.body.password)) {
@@ -100,6 +107,10 @@ router.post("/auth", authenticateJWT, async function (req, res, next) {
     }
 });
 
+/**
+ * Handle a POST request to start a new game based on inputconfiguration;
+ * return a GameInit object with initializedgame metadata
+ */
 router.post('/play/start', authenticateJWT, async (req, res, next) => {
     try {
         let sessionId = uuidv4();
@@ -124,6 +135,10 @@ router.post('/play/start', authenticateJWT, async (req, res, next) => {
     }
 })
 
+/**
+ * Handle a POST request to handle a new guess on an existing game;
+ * return a GameResult object with feedbacks
+ */
 router.post('/play/guess', authenticateJWT, async (req, res, next) => {
     try {
         const data = req.body;
